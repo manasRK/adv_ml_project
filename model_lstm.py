@@ -2,7 +2,6 @@ from os import path
 import itertools
 import numpy as np
 np.random.seed(1337)  # for reproducibility
-from keras.models import Graph
 from keras.preprocessing import sequence
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.cross_validation import KFold

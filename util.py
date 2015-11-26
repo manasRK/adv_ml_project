@@ -16,3 +16,5 @@ def read_data(full_file_name):
     raw_file = open(full_file_name, 'r')
     data = json.load(raw_file)
     return data
+
+

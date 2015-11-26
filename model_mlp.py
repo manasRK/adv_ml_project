@@ -8,7 +8,6 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.utils import np_utils
 
-
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.cross_validation import KFold
 '''GPU command:

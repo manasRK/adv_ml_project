@@ -6,7 +6,7 @@ from collections import defaultdict
 dataset_type = 'amazon'
 file_path = '/home/raihan/Data/Amazon Data'
 
-subset = 'arts'
+subset = 'industrial_scientific'
 if subset == 'video_games':
     file_name = 'Video_Games.txt.gz'
 if subset == 'instant_videos':

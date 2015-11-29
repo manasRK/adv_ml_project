@@ -1,4 +1,5 @@
 import json
+import sqlite3
 
 data_path = 'data'
 subset = 'arts'
@@ -18,3 +19,9 @@ def read_data(full_file_name):
     return data
 
 
+def insert_results(method, acc, recall, prec, f1):
+    conn = sqlite3.connect('results.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO results VALUES (subset + _ + method, acc, recall, prec, f1)")
+    conn.commit()
+    conn.close()

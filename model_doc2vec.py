@@ -10,7 +10,7 @@ from os import path
 import util
 # classifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support,accuracy_score
 from sklearn.cross_validation import KFold
 
 n_fold = 5
@@ -71,10 +71,11 @@ def execute_model(X, y):
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        precision, recall, f1 = prediction_model(X_train, y_train, X_test, y_test)
-        results_user[0] += precision
-        results_user[1] += recall
-        results_user[2] += f1
+        accuracy, precision, recall, f1 = prediction_model(X_train, y_train, X_test, y_test)
+        results_user[0] += accuracy
+        results_user[1] += precision
+        results_user[2] += recall
+        results_user[3] += f1
     results_user /= n_fold
     return results_user
 
@@ -83,8 +84,9 @@ def prediction_model(X_train, y_train, X_test, y_test):
     classifier = LogisticRegression()
     classifier.fit(X_train, y_train)
     pred_labels = classifier.predict(X_test)
+    accuracy = accuracy_score(y_test, pred_labels)
     precision, recall, f1, supp = precision_recall_fscore_support(y_test, pred_labels, average='weighted')
-    return precision, recall, f1
+    return accuracy, precision, recall, f1
 
 
 if __name__ == '__main__':
@@ -112,3 +114,4 @@ if __name__ == '__main__':
     y = np.asarray(y)
     results = execute_model(X, y)
     print results
+    util.insert_results('Doc2Vec', results[0], results[2], results[1], results[3])

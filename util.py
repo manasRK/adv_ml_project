@@ -22,8 +22,10 @@ def read_data(full_file_name):
 
 def insert_results(method, acc, recall, prec, f1):
     time_stamp = time.time()
+    name = method + subset
     conn = sqlite3.connect('results.db')
     c = conn.cursor()
-    c.execute("INSERT INTO results VALUES (time_stamp, subset + _ + method, acc, recall, prec, f1)")
+    c.execute('''INSERT INTO results (insert_date, dataset, acc, recall, prec, f1) VALUES (?,?,?,?)''',
+              time_stamp, name, acc, recall, prec, f1)
     conn.commit()
     conn.close()

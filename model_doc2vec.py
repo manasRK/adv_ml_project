@@ -96,7 +96,7 @@ if __name__ == '__main__':
     sentences = LabeledLineSentence(sources)
     model = Doc2Vec(size=100, alpha=0.025, min_alpha=0.025, window=5)
     model.build_vocab(sentences.to_array())
-    for epoch in xrange(0, 1):
+    for epoch in xrange(0, 10):
         model.train(sentences)
         print 'end of iteration ', epoch + 1
     X = []

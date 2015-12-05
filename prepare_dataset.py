@@ -4,7 +4,8 @@ import json
 from collections import defaultdict
 
 dataset_type = 'amazon'
-file_path = '/home/raihan/Data/Amazon Data'
+# file_path = '/home/raihan/Data/Amazon Data'
+file_path = 'D:\Data\Amazon Data'
 
 subset = 'instant_videos'
 if subset == 'video_games':
@@ -66,6 +67,7 @@ if subset == 'movies_tv':
 
 pruned_f_name = file_name.split('.')[0] + '.json'
 data_path = 'data'
+
 
 def parse(filename):
     print filename

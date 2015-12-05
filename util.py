@@ -3,7 +3,7 @@ import sqlite3
 import datetime
 
 data_path = 'data'
-subset = 'video_games'
+subset = 'instant_videos'
 if subset == 'arts':
     file_name = 'Arts.json'
 if subset == 'video_games':
@@ -18,12 +18,14 @@ if subset == 'watches':
     file_name = 'Watches.json'
 if subset == 'shoes':
     file_name = 'Shoes.json'
-if subset == 'tg':
+if subset == 'ti':
     file_name = 'Tools_&_Home_Improvement.json'
 if subset == 'toy_games':
     file_name = 'Toys_&_Games.json'
 if subset == 'ind_sci':
     file_name = 'Industrial_&_Scientific.json'
+if subset == 'instant_videos':
+    file_name = 'Amazon_Instant_Video.json'
 
 
 def read_data(full_file_name):

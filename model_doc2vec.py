@@ -15,6 +15,7 @@ from sklearn.cross_validation import KFold
 
 n_fold = 5
 
+
 class LabeledLineSentence(object):
     def __init__(self, sources):
         self.sources = sources

@@ -6,7 +6,7 @@ from collections import defaultdict
 dataset_type = 'amazon'
 file_path = '/home/raihan/Data/Amazon Data'
 
-subset = 'instant_videos'
+subset = 'cell_phones'
 if subset == 'video_games':
     file_name = 'Video_Games.txt.gz'
 if subset == 'instant_videos':
@@ -14,12 +14,12 @@ if subset == 'instant_videos':
 if subset == 'electronics':
     file_name = 'Electronics.txt.gz'
 if subset == 'finefoods':
-    file_name = 'Finefoods.txt.gz'
+    file_name = 'finefoods.txt.gz'
 if subset == 'books':
     file_name = 'Books.txt.gz'
 if subset == 'home_kitchen':
     file_name = 'Home_&_Kitchen.txt.gz'
-if subset == 'sport_outdoors':
+if subset == 'sports_outdoos':
     file_name = 'Sports_&_Outdoors.txt.gz'
 if subset == 'health':
     file_name = 'Health.txt.gz'
@@ -63,6 +63,9 @@ if subset == 'music':
     file_name = 'Music.txt.gz'
 if subset == 'movies_tv':
     file_name = 'Movies_&_TV.txt.gz'
+if subset == 'cell_phones':
+    file_name = 'Cell_Phones_&_Accessories.txt.gz'
+
 
 pruned_f_name = file_name.split('.')[0] + '.json'
 data_path = 'data'

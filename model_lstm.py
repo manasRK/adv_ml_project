@@ -134,3 +134,4 @@ if __name__ == '__main__':
     X, y = build_dataset(data)
     results = execute_model(X, y)
     print results
+    util.insert_results('LSTM', results[0], results[2], results[1], results[3])

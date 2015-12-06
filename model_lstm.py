@@ -3,7 +3,7 @@ import itertools
 import numpy as np
 np.random.seed(1337)  # for reproducibility
 from keras.preprocessing import sequence
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 from sklearn.cross_validation import KFold
 from keras.preprocessing.text import Tokenizer
 from keras.models import Sequential
@@ -83,10 +83,11 @@ def lstm_model(X_train, y_train, X_test, y_test):
     print('Test accuracy:', acc)
     pred_labels = model.predict_classes(X_test)
     # print pred_labels
+    accuracy = accuracy_score(y_test, pred_labels)
     precision, recall, f1, supp = precision_recall_fscore_support(y_test, pred_labels, average='weighted')
     print precision, recall, f1, supp
 
-    return precision, recall, f1
+    return accuracy, precision, recall, f1
 
 
 def build_dataset(user_data):
@@ -119,11 +120,12 @@ def execute_model(X, y):
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        precision, recall, f1 = lstm_model(X_train, y_train, X_test, y_test)
+        accuracy, precision, recall, f1 = lstm_model(X_train, y_train, X_test, y_test)
         # precision, recall, f1 = bidirectional_lstm(X_train, y_train, X_test, y_test)
-        results_user[0] += precision
-        results_user[1] += recall
-        results_user[2] += f1
+        results_user[0] += accuracy
+        results_user[1] += precision
+        results_user[2] += recall
+        results_user[3] += f1
     results_user /= n_fold
     return results_user
 

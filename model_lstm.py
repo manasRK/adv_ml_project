@@ -48,13 +48,13 @@ def bidirectional_lstm(X_train, y_train, X_test, y_test):
     score, acc = model.evaluate(X_test, y_test, batch_size=batch_size, show_accuracy=True)
     print('Test score:', score)
     print('Test accuracy:', acc)
-
     pred_labels = model.predict_classes(X_test)
-    print pred_labels
+    # print pred_labels
+    accuracy = accuracy_score(y_test, pred_labels)
     precision, recall, f1, supp = precision_recall_fscore_support(y_test, pred_labels, average='weighted')
     print precision, recall, f1, supp
 
-    return precision, recall, f1
+    return accuracy, precision, recall, f1
 
 
 def lstm_model(X_train, y_train, X_test, y_test):

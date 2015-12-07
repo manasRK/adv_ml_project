@@ -106,7 +106,7 @@ def build_dataset(user_data):
 
 def execute_model(X, y):
     kf = KFold(y.shape[0], n_folds=n_fold, shuffle=True)
-    results_user = np.array([0.0, 0.0, 0.0])
+    results_user = np.array([0.0, 0.0, 0.0, 0.0])
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]

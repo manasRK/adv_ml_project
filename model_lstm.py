@@ -58,8 +58,8 @@ def bidirectional_lstm(X_train, y_train, X_test, y_test):
 
 
 def lstm_model(X_train, y_train, X_test, y_test):
-    X_train = sequence.pad_sequences(X_train, maxlen=max_len)
-    X_test = sequence.pad_sequences(X_test, maxlen=max_len)
+    X_train = sequence.pad_sequences(X_train, maxlen=max_len, padding='post')
+    X_test = sequence.pad_sequences(X_test, maxlen=max_len, padding='post')
     print X_train.shape, y_train.shape
     print X_test.shape, y_test.shape
 
@@ -116,7 +116,7 @@ def build_dataset(user_data):
 
 def execute_model(X, y):
     kf = KFold(y.shape[0], n_folds=n_fold, shuffle=True)
-    results_user = np.array([0.0, 0.0, 0.0])
+    results_user = np.array([0.0, 0.0, 0.0, 0.0])
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]

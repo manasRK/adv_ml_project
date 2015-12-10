@@ -8,17 +8,17 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.utils import np_utils
 
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 from sklearn.cross_validation import KFold
 '''GPU command:
-        THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python model_lstm.py
+        THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python model_mlp.py
 '''
 
 test_split = 0.2
 max_len = 1000
 max_features = 2000
 batch_size = 32
-nb_epoch = 1
+nb_epoch = 4
 n_fold = 5
 
 
@@ -48,14 +48,15 @@ def build_dataset(data):
 def execute_model(X, y):
     print X.shape, y.shape
     kf = KFold(y.shape[0], n_folds=n_fold, shuffle=True)
-    results_user = np.array([0.0, 0.0, 0.0])
+    results_user = np.array([0.0, 0.0, 0.0, 0.0])
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        precision, recall, f1 = mlp_model(X_train, y_train, X_test, y_test)
-        results_user[0] += precision
-        results_user[1] += recall
-        results_user[2] += f1
+        accuracy, precision, recall, f1 = mlp_model(X_train, y_train, X_test, y_test)
+        results_user[0] += accuracy
+        results_user[1] += precision
+        results_user[2] += recall
+        results_user[3] += f1
     results_user /= n_fold
     return results_user
 
@@ -87,10 +88,11 @@ def mlp_model(X_train, y_train, X_test, y_test):
     pred_labels = model.predict_classes(X_test)
     # print pred_labels
     # print y_test
+    accuracy = accuracy_score(y_test, pred_labels)
     precision, recall, f1, supp = precision_recall_fscore_support(y_test, pred_labels, average='weighted')
     print precision, recall, f1, supp
 
-    return precision, recall, f1
+    return accuracy, precision, recall, f1
 
 if __name__ == '__main__':
     n_count = 0
@@ -98,3 +100,4 @@ if __name__ == '__main__':
     X, y = build_dataset(data)
     results = execute_model(X, y)
     print results
+    util.insert_results('MLP', results[0], results[2], results[1], results[3])

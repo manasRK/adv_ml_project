@@ -41,8 +41,8 @@ def bidirectional_lstm(X_train, y_train, X_test, y_test):
     model.add(Dense(1))
     model.add(Activation('sigmoid'))
 
-    # model.compile(loss='categorical_crossentropy', optimizer='adam', class_mode="categorical")
-    model.compile(loss='binary_crossentropy', optimizer='rmsprop')
+    model.compile(loss='binary_crossentropy', optimizer='adam', class_mode="binary")
+    # model.compile(loss='binary_crossentropy', optimizer='rmsprop')
     print("Train...")
     model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=4, validation_data=(X_test, y_test), show_accuracy=True)
     score, acc = model.evaluate(X_test, y_test, batch_size=batch_size, show_accuracy=True)
@@ -120,8 +120,8 @@ def execute_model(X, y):
     for train_index, test_index in kf:
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        accuracy, precision, recall, f1 = lstm_model(X_train, y_train, X_test, y_test)
-        # precision, recall, f1 = bidirectional_lstm(X_train, y_train, X_test, y_test)
+        # accuracy, precision, recall, f1 = lstm_model(X_train, y_train, X_test, y_test)
+        accuracy, precision, recall, f1 = bidirectional_lstm(X_train, y_train, X_test, y_test)
         results_user[0] += accuracy
         results_user[1] += precision
         results_user[2] += recall
@@ -136,4 +136,4 @@ if __name__ == '__main__':
     X, y = build_dataset(data)
     results = execute_model(X, y)
     print results
-    util.insert_results('LSTM', results[0], results[2], results[1], results[3])
+    util.insert_results('BI-LSTM', results[0], results[2], results[1], results[3])

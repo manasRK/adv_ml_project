@@ -3,7 +3,7 @@ import sqlite3
 import datetime
 
 data_path = 'data'
-subset = 'ind_sci'
+subset = 'software'
 if subset == 'arts':
     file_name = 'Arts.json'
 if subset == 'video_games':
